@@ -86,26 +86,35 @@ class MutationCreateFlashcardSetTest {
         // check that returned Flashcard is correct
         assertThat(createdFlashcardSet.getAssessmentId(), is(notNullValue()));
 
-        // Get the list of flashcards from the createdFlashcardSet
+
         List<Flashcard> flashcards = createdFlashcardSet.getFlashcards();
+        assertThat(flashcards, hasSize(2));
 
-        // Assert that the flashcards list is not null and has at least one flashcard
-        assertThat(flashcards, is(notNullValue()));
-        assertThat(flashcards.size(), is(greaterThan(0)));
+        Flashcard flashcard1 = flashcards.get(0);
+        assertThat(flashcard1.getSides(), hasSize(2));
 
-        // Iterate over each flashcard and assert its properties
-        for (Flashcard flashcard : flashcards) {
-            // Assert that the flashcard's sides list is not null and has at least one side
-            List<FlashcardSide> sides = flashcard.getSides();
-            assertThat(sides, is(notNullValue()));
-            assertThat(sides.size(), is(greaterThan(0)));
+        FlashcardSide flashcard1Side1 = flashcard1.getSides().get(0);
+        assertThat(flashcard1Side1.getLabel(), is("Side 1"));
+        assertThat(flashcard1Side1.getIsQuestion(), is(true));
+        assertThat(flashcard1Side1.getText(), is("Question 1"));
 
-            // Iterate over each side and assert its properties
-            for (FlashcardSide side : sides) {
-                assertThat(side.getLabel(), is(notNullValue()));
-                assertThat(side.getIsQuestion(), is(notNullValue()));
-                assertThat(side.getText(), is(notNullValue()));
-            }
-        }
+        FlashcardSide flashcard1Side2 = flashcard1.getSides().get(1);
+        assertThat(flashcard1Side2.getLabel(), is("Side 2"));
+        assertThat(flashcard1Side2.getIsQuestion(), is(false));
+        assertThat(flashcard1Side2.getText(), is("Answer 1"));
+
+        Flashcard flashcard2 = flashcards.get(1);
+        assertThat(flashcard2.getSides(), hasSize(2));
+
+        FlashcardSide flashcard2Side1 = flashcard2.getSides().get(0);
+        assertThat(flashcard2Side1.getLabel(), is("Side 1"));
+        assertThat(flashcard2Side1.getIsQuestion(), is(true));
+        assertThat(flashcard2Side1.getText(), is("Question 2"));
+
+        FlashcardSide flashcard2Side2 = flashcard2.getSides().get(1);
+        assertThat(flashcard2Side2.getLabel(), is("Side 2"));
+        assertThat(flashcard2Side2.getIsQuestion(), is(false));
+        assertThat(flashcard2Side2.getText(), is("Answer 2"));
+
     }
 }
