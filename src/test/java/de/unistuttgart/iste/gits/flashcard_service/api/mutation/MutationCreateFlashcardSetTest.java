@@ -86,35 +86,6 @@ class MutationCreateFlashcardSetTest {
         // check that returned Flashcard is correct
         assertThat(createdFlashcardSet.getAssessmentId(), is(notNullValue()));
 
-
-        /*List<Flashcard> flashcards = createdFlashcardSet.getFlashcards();
-        assertThat(flashcards, hasSize(2));
-
-        Flashcard flashcard1 = flashcards.get(0);
-        assertThat(flashcard1.getSides(), hasSize(2));
-
-        FlashcardSide flashcard1Side1 = flashcard1.getSides().get(0);
-        assertThat(flashcard1Side1.getLabel(), is("Side 1"));
-        assertThat(flashcard1Side1.getIsQuestion(), is(true));
-        assertThat(flashcard1Side1.getText(), is("Question 1"));
-
-        FlashcardSide flashcard1Side2 = flashcard1.getSides().get(1);
-        assertThat(flashcard1Side2.getLabel(), is("Side 2"));
-        assertThat(flashcard1Side2.getIsQuestion(), is(false));
-        assertThat(flashcard1Side2.getText(), is("Answer 1"));
-
-        Flashcard flashcard2 = flashcards.get(1);
-        assertThat(flashcard2.getSides(), hasSize(2));
-
-        FlashcardSide flashcard2Side1 = flashcard2.getSides().get(0);
-        assertThat(flashcard2Side1.getLabel(), is("Side 1"));
-        assertThat(flashcard2Side1.getIsQuestion(), is(true));
-        assertThat(flashcard2Side1.getText(), is("Question 2"));
-
-        FlashcardSide flashcard2Side2 = flashcard2.getSides().get(1);
-        assertThat(flashcard2Side2.getLabel(), is("Side 2"));
-        assertThat(flashcard2Side2.getIsQuestion(), is(false));
-        assertThat(flashcard2Side2.getText(), is("Answer 2"));*/
         // Get the list of flashcards from the createdFlashcardSet
         List<Flashcard> flashcards = createdFlashcardSet.getFlashcards();
 
@@ -137,8 +108,4 @@ class MutationCreateFlashcardSetTest {
             }
         }
     }
-
-
-
-
 }

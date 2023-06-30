@@ -11,10 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.test.tester.GraphQlTester;
 import org.springframework.test.annotation.Commit;
-
 import java.util.List;
 import java.util.UUID;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -81,6 +79,4 @@ class MutationCreateFlashcardTest {
         assertThat(side2.getText(), is("Answer 1"));
 
     }
-
-
 }

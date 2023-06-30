@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.test.tester.GraphQlTester;
 import org.springframework.test.annotation.Commit;
-
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
