@@ -17,7 +17,7 @@ type Flashcard {
     Progress data of the flashcard, specific to given users.
     If userId is not provided, the progress data of the current user is returned.
     """
-    userProgressData(userId: UUID): FlashcardProgressData!
+    userProgressData: FlashcardProgressData!
 }
 
 type FlashcardProgressData {
