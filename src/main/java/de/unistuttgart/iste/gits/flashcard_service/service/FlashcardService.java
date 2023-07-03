@@ -95,6 +95,15 @@ public class FlashcardService {
         }
     }
 
+    public Flashcard mapEntityToFlashcard(FlashcardEntity entity) {
+        return flashcardMapper.entityToDto(entity);
+    }
+
+    public Flashcard getFlashCardById(UUID flashcardId) {
+        requireFlashcardExisting(flashcardId);
+        return mapEntityToFlashcard(flashcardRepository.getReferenceById(flashcardId));
+    }
+
     public List<Flashcard> getFlashcardsById(List<UUID> ids) {
         var entities = flashcardRepository.findByIdIn(ids);
         return entities.stream()
@@ -108,4 +117,5 @@ public class FlashcardService {
                 .map(flashcardMapper::flashcardSetEntityToDto)
                 .toList();
     }
+
 }
