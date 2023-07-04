@@ -30,13 +30,16 @@ public class FlashcardUserProgressDataService {
     private FlashcardProgressDataEntity getProgressDataEntity(UUID flashcardId, UUID userId) {
         var primaryKey = new FlashcardProgressDataEntity.PrimaryKey(flashcardId, userId);
         return flashcardProgressDataRepository.findById(primaryKey)
-                .orElseGet(() -> initializeProgressDate(flashcardId, userId));
+                .orElseGet(() -> initializeProgressData(flashcardId, userId));
     }
 
-    private FlashcardProgressDataEntity initializeProgressDate(UUID flashcardId, UUID userId) {
+    private FlashcardProgressDataEntity initializeProgressData(UUID flashcardId, UUID userId) {
         var primaryKey = new FlashcardProgressDataEntity.PrimaryKey(flashcardId, userId);
         var progressData = FlashcardProgressDataEntity.builder()
                 .primaryKey(primaryKey)
+                .learningInterval(1)
+                .lastLearned(null)
+                .nextLearn(null)
                 .build();
         return flashcardProgressDataRepository.save(progressData);
     }
