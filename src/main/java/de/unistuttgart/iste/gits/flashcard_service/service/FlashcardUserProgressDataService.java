@@ -46,6 +46,7 @@ public class FlashcardUserProgressDataService {
         var progressData = getProgressDataEntity(flashcardId, userId);
         var logData = new FlashcardProgressDataLogEntity();
         logData.setSuccess(successful);
+        logData.setFlashcardProgressData(progressData);
 
         updateProgressDataEntity(progressData, successful);
         flashCardProgressDataLogRepository.save(logData);
@@ -64,6 +65,9 @@ public class FlashcardUserProgressDataService {
             if (learningInterval < 1) {
                 learningInterval = 1;
             }
+        }
+        if (learningInterval < 1) {
+            learningInterval = 1;
         }
         progressData.setLearningInterval(learningInterval);
         progressData.setNextLearn(lastLearn.plusDays(learningInterval));
