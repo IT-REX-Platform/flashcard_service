@@ -1,10 +1,6 @@
 package de.unistuttgart.iste.gits.flashcard_service.persistence.dao;
 
-import de.unistuttgart.iste.gits.generated.dto.FlashcardProgressLogItem;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "FlashcardProgressData")
@@ -25,13 +22,16 @@ public class FlashcardProgressDataEntity {
     private PrimaryKey primaryKey;
 
     @Column
-    private FlashcardProgressLogItem log;
+    private OffsetDateTime lastLearned;
 
     @Column
     private int learningInterval;
 
     @Column
     private OffsetDateTime nextLearn;
+
+    @OneToMany(mappedBy = "flashcardProgressData", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FlashcardProgressDataLogEntity> flashcardProgressDataLogs;
 
     @Data
     @Embeddable

@@ -23,10 +23,14 @@ type Flashcard {
 type FlashcardProgressData {
 
     """
-    A list of entries each representing the user completing the content item.
-    Sorted by date in descending order.
+    The date the user learned the flashcard.
+    This is null it the user has not learned the content item once.
     """
-    log: [FlashcardProgressLogItem]!
+    lastLearned: DateTime
+    """
+    Whether the user knew the flashcard or not.
+    """
+    success: Boolean!
     """
     The learning interval in days for the content item.
     """
@@ -39,16 +43,6 @@ type FlashcardProgressData {
     nextLearn: DateTime
 }
 
-type FlashcardProgressLogItem {
-    """
-    The date the user learned the flashcard.
-    """
-    date: DateTime!
-    """
-    Whether the user knew the flashcard or not.
-    """
-    success: Boolean!
-}
 
 type FlashcardSide {
     """
