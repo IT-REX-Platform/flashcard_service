@@ -51,7 +51,6 @@ public class FlashcardUserProgressDataService {
         flashCardProgressDataLogRepository.save(logData);
 
         return flashcard;
-
     }
 
     private void updateProgressDataEntity(FlashcardProgressDataEntity progressData, boolean success) {

@@ -28,10 +28,6 @@ type FlashcardProgressData {
     """
     lastLearned: DateTime
     """
-    Whether the user knew the flashcard or not.
-    """
-    success: Boolean!
-    """
     The learning interval in days for the content item.
     """
     learningInterval: Int
