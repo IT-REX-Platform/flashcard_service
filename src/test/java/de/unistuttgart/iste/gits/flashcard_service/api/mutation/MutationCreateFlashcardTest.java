@@ -4,7 +4,6 @@ import de.unistuttgart.iste.gits.common.testutil.GraphQlApiTest;
 import de.unistuttgart.iste.gits.common.testutil.TablesToDelete;
 import de.unistuttgart.iste.gits.flashcard_service.persistence.repository.FlashcardRepository;
 import de.unistuttgart.iste.gits.generated.dto.Flashcard;
-import de.unistuttgart.iste.gits.generated.dto.FlashcardSet;
 import de.unistuttgart.iste.gits.generated.dto.FlashcardSide;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
@@ -19,8 +18,7 @@ import static org.hamcrest.Matchers.*;
 @GraphQlApiTest
 @TablesToDelete({"flashcard_side", "flashcard", "flashcard_set"})
 class MutationCreateFlashcardTest {
-    @Autowired
-    private FlashcardRepository flashcardRepository;
+
     @Test
     @Transactional
     @Commit

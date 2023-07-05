@@ -31,50 +31,49 @@ class MutationCreateFlashcardSetTest {
               createFlashcardSet(input: {
                  assessmentId: $assessmentId
                  flashcards: [
-                              {
-                                sides: [
-                                  {
-                                    label: "Side 1",
-                                    isQuestion: true,
-                                    text: "Question 1"
-                                  },
-                                  {
-                                    label: "Side 2",
-                                    isQuestion: false,
-                                    text: "Answer 1"
-                                  }
-                                ]
-                              },
-                              {
-                                sides: [
-                                  {
-                                    label: "Side 1",
-                                    isQuestion: true,
-                                    text: "Question 2"
-                                  },
-                                  {
-                                    label: "Side 2",
-                                    isQuestion: false,
-                                    text: "Answer 2"
-                                  }
-                                ]
-                              }
+                    {
+                      sides: [
+                        {
+                          label: "Side 1",
+                          isQuestion: true,
+                          text: "Question 1"
+                        },
+                        {
+                          label: "Side 2",
+                          isQuestion: false,
+                          text: "Answer 1"
+                        }
+                      ]
+                    },
+                    {
+                      sides: [
+                        {
+                          label: "Side 1",
+                          isQuestion: true,
+                          text: "Question 2"
+                        },
+                        {
+                          label: "Side 2",
+                          isQuestion: false,
+                          text: "Answer 2"
+                        }
+                      ]
+                    }
                  
-                 ]
-              }) 
-              {
-                 assessmentId
-                 flashcards {
-                               sides {
-                                     label
-                                     isQuestion
-                                     text
-                                 }      
-                            }
-              }
-                 
-                   
-            
+              ]
+            }) 
+            {
+               assessmentId
+               flashcards
+               {
+                   sides 
+                   {
+                     label
+                     isQuestion
+                     text
+                   }      
+               }
+            }
         }
         """;
 

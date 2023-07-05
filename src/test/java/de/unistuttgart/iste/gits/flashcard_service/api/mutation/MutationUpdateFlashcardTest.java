@@ -35,9 +35,7 @@ class MutationUpdateFlashcardTest {
     void testUpdateFlashcard(GraphQlTester graphQlTester) {
         // Create and save the initial flashcard with sides
         FlashcardEntity flashcard = new FlashcardEntity();
-        //flashcard.setId(UUID.randomUUID());
         flashcard.setSetId(UUID.randomUUID());
-
 
         List<FlashcardSideEntity> sides = new ArrayList<>();
 

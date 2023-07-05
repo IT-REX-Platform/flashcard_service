@@ -27,9 +27,8 @@ public class MutationDeleteFlashcardTest {
     void testDeleteFlashcard(GraphQlTester graphQlTester) {
         // Create and save the flashcard to be deleted
         FlashcardEntity flashcard = new FlashcardEntity();
-        //flashcard.setId(UUID.randomUUID());
-        flashcard.setSetId(UUID.randomUUID());
 
+        flashcard.setSetId(UUID.randomUUID());
 
         flashcard= flashcardRepository.save(flashcard);
 
