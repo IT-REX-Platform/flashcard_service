@@ -52,7 +52,6 @@ public class MutationDeleteFlashcardSetTest {
         side1.setQuestion(true);
         side1.setText("Question 1");
         side1.setFlashcard(flashcard);
-        //flashcardSideRepository.save(side1); // Save the side using the side repository
         side1 = flashcardSideRepository.save(side1);
         sides.add(side1);
 
@@ -63,7 +62,6 @@ public class MutationDeleteFlashcardSetTest {
         side2.setQuestion(false);
         side2.setText("Answer 1");
         side2.setFlashcard(flashcard);
-        //flashcardSideRepository.save(side2); // Save the side using the side repository
         side2 = flashcardSideRepository.save(side2);
         sides.add(side2);
 
