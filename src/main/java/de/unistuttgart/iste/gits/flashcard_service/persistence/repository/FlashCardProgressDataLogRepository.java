@@ -11,7 +11,14 @@ import java.util.UUID;
 @Repository
 public interface FlashCardProgressDataLogRepository extends JpaRepository<FlashcardProgressDataLogEntity, UUID> {
 
-    @Query("SELECT DISTINCT f.flashcardProgressData, MAX(f.learnedAt) " +
-            "FROM FlashcardProgressDataLog f ")
-    List<FlashcardProgressDataLogEntity> findDistinctFlashcardsWithLatestLearnedDate();
+    @Query("""
+            SELECT log FROM FlashcardProgressDataLog log
+            JOIN FETCH log.flashcardProgressData progressData
+            WHERE log.learnedAt = (
+               SELECT MAX(latestLog.learnedAt)
+               FROM FlashcardProgressDataLog latestLog
+               WHERE latestLog.flashcardProgressData = log.flashcardProgressData
+            )
+            """)
+    List<FlashcardProgressDataLogEntity> findLatestLogsPerFlashcardProgressData();
 }

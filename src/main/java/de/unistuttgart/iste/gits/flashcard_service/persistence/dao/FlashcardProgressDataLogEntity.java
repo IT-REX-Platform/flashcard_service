@@ -32,7 +32,4 @@ public class FlashcardProgressDataLogEntity {
     })
     @EqualsAndHashCode.Exclude
     private FlashcardProgressDataEntity flashcardProgressData;
-
-
-
 }
