@@ -30,8 +30,4 @@ type Mutation {
     Logs that a user has learned a flashcard.
     """
     logFlashcardLearned(input: LogFlashcardLearnedInput!): Flashcard!
-    """
-    Logs that a user has learned a flashcard set.
-    """
-    logFlashcardSetLearned(input: LogFlashcardSetLearnedInput!): FlashcardSet!
 }
