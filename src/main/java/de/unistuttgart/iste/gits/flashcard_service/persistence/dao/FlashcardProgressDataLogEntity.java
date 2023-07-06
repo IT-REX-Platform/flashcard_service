@@ -1,10 +1,7 @@
 package de.unistuttgart.iste.gits.flashcard_service.persistence.dao;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -31,5 +28,6 @@ public class FlashcardProgressDataLogEntity {
             @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
     })
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private FlashcardProgressDataEntity flashcardProgressData;
 }
