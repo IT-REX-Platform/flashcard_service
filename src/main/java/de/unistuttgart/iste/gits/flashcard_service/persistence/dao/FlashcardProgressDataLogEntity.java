@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity(name = "FlashcardProgressDataLog")
@@ -20,6 +21,9 @@ public class FlashcardProgressDataLogEntity {
 
     @Column(nullable = false)
     private boolean success;
+
+    @Column(nullable = false)
+    private OffsetDateTime learnedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({

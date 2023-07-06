@@ -39,6 +39,22 @@ type FlashcardProgressData {
     nextLearn: DateTime
 }
 
+type FlashcardProgressDataLog {
+    """
+    The id of the Log
+    """
+    id: UUID
+
+    """
+    The date the user learned the flashcard.
+    """
+    learnedAt: DateTime!
+    """
+    Whether the user knew the flashcard or not.
+    """
+    success: Boolean!
+}
+
 
 type FlashcardSide {
     """
