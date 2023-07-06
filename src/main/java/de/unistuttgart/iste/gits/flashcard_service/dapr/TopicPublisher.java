@@ -16,7 +16,7 @@ public class TopicPublisher {
     private static final String PUBSUB_NAME = "gits";
     private static final String RESOURCE_UPDATE_TOPIC = "resource-update";
 
-    private static final String USER_PROGRESS_LOG_TOPIC = "content-progressed";
+    private static final String USER_PROGRESS_LOG_TOPIC = "flashcardset-learned";
 
     private final DaprClient client;
 

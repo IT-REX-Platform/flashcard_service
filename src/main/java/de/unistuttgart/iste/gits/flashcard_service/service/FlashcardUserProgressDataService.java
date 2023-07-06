@@ -123,7 +123,7 @@ public class FlashcardUserProgressDataService {
             }
         }
 
-        float correctness = (float) correct /total;
+        float correctness = (float) correct / total;
 
         publishUserProgressEvent(userId, flashcardSetId, correctness);
     }
@@ -140,8 +140,4 @@ public class FlashcardUserProgressDataService {
                         .build()
         );
     }
-
-
-
-
 }
