@@ -106,7 +106,7 @@ public class FlashcardUserProgressDataService {
     }
 
     private void publishFlashcardSetLearned(UUID userId, UUID flashcardSetId) {
-        List<FlashcardProgressDataLogEntity> dataLogEntities = flashCardProgressDataLogRepository.findDistinctByFlashcardProgressDataOrderByLearnedAtDesc();
+        List<FlashcardProgressDataLogEntity> dataLogEntities = flashCardProgressDataLogRepository.findDistinctFlashcardsWithLatestLearnedDate();
         List<FlashcardProgressDataLog> dataLogs = new ArrayList<>();
 
         for (var datalogEntity : dataLogEntities) {

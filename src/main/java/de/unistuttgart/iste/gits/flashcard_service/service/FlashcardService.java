@@ -1,5 +1,6 @@
 package de.unistuttgart.iste.gits.flashcard_service.service;
 
+import de.unistuttgart.iste.gits.flashcard_service.dapr.TopicPublisher;
 import de.unistuttgart.iste.gits.flashcard_service.persistence.dao.FlashcardEntity;
 import de.unistuttgart.iste.gits.flashcard_service.persistence.dao.FlashcardSetEntity;
 import de.unistuttgart.iste.gits.flashcard_service.persistence.dao.FlashcardSideEntity;
@@ -27,6 +28,7 @@ public class FlashcardService {
     private final FlashcardSetRepository flashcardSetRepository;
     private final FlashcardMapper flashcardMapper;
     private final FlashcardValidator flashcardValidator;
+    private final TopicPublisher topicPublisher;
 
 
     public Flashcard createFlashcard(CreateFlashcardInput flashcardInput) {
