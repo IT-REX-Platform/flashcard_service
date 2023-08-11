@@ -40,17 +40,23 @@ public class FlashcardController {
     }
 
     @MutationMapping
-    public Flashcard createFlashcard(@Argument(name = "input") CreateFlashcardInput input) {
-        return flashcardService.createFlashcard(input);
+    public FlashcardSetMutation mutateFlashcardSet(@Argument UUID assessmentId) {
+        // this is basically an empty object, only serving as a parent for the nested mutations
+        return new FlashcardSetMutation(assessmentId);
     }
 
-    @MutationMapping
+    @SchemaMapping(typeName = "FlashcardSetMutation")
+    public Flashcard createFlashcard(@Argument(name = "input") CreateFlashcardInput input, FlashcardSetMutation mutation) {
+        return flashcardService.createFlashcard(mutation.getAssessmentId(), input);
+    }
+
+    @SchemaMapping(typeName = "FlashcardSetMutation")
     public Flashcard updateFlashcard(@Argument(name = "input") UpdateFlashcardInput input) {
         return flashcardService.updateFlashcard(input);
     }
 
-    @MutationMapping
-    public UUID deleteFlashcard(@Argument(name = "input") UUID id) {
+    @SchemaMapping(typeName = "FlashcardSetMutation")
+    public UUID deleteFlashcard(@Argument UUID id) {
         return flashcardService.deleteFlashcard(id);
     }
 

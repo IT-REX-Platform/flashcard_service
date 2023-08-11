@@ -31,14 +31,14 @@ public class FlashcardService {
     private final TopicPublisher topicPublisher;
 
 
-    public Flashcard createFlashcard(CreateFlashcardInput flashcardInput) {
+    public Flashcard createFlashcard(UUID assessmentId, CreateFlashcardInput flashcardInput) {
         flashcardValidator.validateCreateFlashcardInput(flashcardInput);
 
         FlashcardEntity mappedEntity = flashcardMapper.dtoToEntity(flashcardInput);
         for (FlashcardSideEntity flashcardSideEntity : mappedEntity.getSides()) {
             flashcardSideEntity.setFlashcard(mappedEntity);
         }
-        mappedEntity.setSetId(flashcardInput.getSetId());
+        mappedEntity.setSetId(assessmentId);
         FlashcardEntity flashcardEntity = flashcardRepository.save(mappedEntity);
         return flashcardMapper.entityToDto(flashcardEntity);
     }

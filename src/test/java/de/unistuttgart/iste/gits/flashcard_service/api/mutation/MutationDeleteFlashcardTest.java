@@ -3,12 +3,16 @@ package de.unistuttgart.iste.gits.flashcard_service.api.mutation;
 import de.unistuttgart.iste.gits.common.testutil.GraphQlApiTest;
 import de.unistuttgart.iste.gits.common.testutil.TablesToDelete;
 import de.unistuttgart.iste.gits.flashcard_service.persistence.dao.FlashcardEntity;
+import de.unistuttgart.iste.gits.flashcard_service.persistence.dao.FlashcardSetEntity;
 import de.unistuttgart.iste.gits.flashcard_service.persistence.repository.FlashcardRepository;
+import de.unistuttgart.iste.gits.flashcard_service.service.FlashcardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.test.tester.GraphQlTester;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -18,6 +22,10 @@ import static org.hamcrest.Matchers.is;
 @GraphQlApiTest
 @TablesToDelete({"flashcard_side", "flashcard", "flashcard_set"})
 public class MutationDeleteFlashcardTest {
+
+    @Autowired
+    private FlashcardService flashcardService;
+
     @Autowired
     private FlashcardRepository flashcardRepository;
 
@@ -26,7 +34,14 @@ public class MutationDeleteFlashcardTest {
     @Commit
     void testDeleteFlashcard(GraphQlTester graphQlTester) {
         // Create and save the flashcard to be deleted
-        FlashcardEntity flashcard = new FlashcardEntity();
+        FlashcardSetEntity set = new FlashcardSetEntity();
+        set.setAssessmentId(UUID.randomUUID());
+
+        set.setFlashcards(List.of(
+                new FlashcardEntity(),
+                new FlashcardEntity(),
+                new FlashcardEntity()
+        ));
 
         flashcard.setSetId(UUID.randomUUID());
 
@@ -36,8 +51,10 @@ public class MutationDeleteFlashcardTest {
 
         // Perform the delete operation
         String query = """
-          mutation ($input: UUID!) {
-            deleteFlashcard(input: $input)
+          mutation ($assessmentId: UUID!, $flashcardId: UUID!) {
+            mutateFlashcardSet(id: $assessmentId) {
+              deleteFlashcard(id: $flashcardId)
+            }
           }
         """;
 
