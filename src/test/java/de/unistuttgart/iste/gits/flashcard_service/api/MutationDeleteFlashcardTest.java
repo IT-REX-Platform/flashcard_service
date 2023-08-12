@@ -67,10 +67,38 @@ class MutationDeleteFlashcardTest {
                 .getFlashcards()
                 .stream()
                 .filter(x -> x.getId() == flashcardToDelete))
-                .hasSize(0);
+                .isEmpty();
 
         // assert that the flashcard is missing from the flashcard repository
         assertThat(flashcardRepository.count()).isEqualTo(3);
-        assertThat(flashcardRepository.findById(flashcardToDelete).isPresent()).isFalse();
+        assertThat(flashcardRepository.findById(flashcardToDelete)).isNotPresent();
+    }
+
+    @Test
+    @Transactional
+    void testDeleteFlashcardNotExisting(GraphQlTester tester) {
+        // fill the repo with some data
+        List<FlashcardSetEntity> expectedSets = testUtils.populateFlashcardSetRepository(flashcardSetRepository);
+
+        UUID setToDeleteFrom = expectedSets.get(0).getAssessmentId();
+        UUID nonexistantUUID = UUID.randomUUID();
+
+        String query = """
+                mutation($assessmentId: UUID!, $flashcardId: UUID!) {
+                    mutateFlashcardSet(assessmentId: $assessmentId) {
+                        deleteFlashcard(id: $flashcardId)
+                    }
+                }
+                """;
+
+        tester.document(query)
+                .variable("assessmentId", setToDeleteFrom)
+                .variable("flashcardId", nonexistantUUID)
+                .execute()
+                .errors()
+                .expect(x -> x.getExtensions().get("exception").equals("EntityNotFoundException"));
+
+        assertThat(flashcardSetRepository.count()).isEqualTo(2);
+        assertThat(flashcardRepository.count()).isEqualTo(4);
     }
 }
