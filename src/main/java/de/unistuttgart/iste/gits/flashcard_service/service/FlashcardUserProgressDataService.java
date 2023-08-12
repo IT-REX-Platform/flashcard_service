@@ -101,7 +101,7 @@ public class FlashcardUserProgressDataService {
 
     private UUID getFlashCardSetAssessmentId(UUID flashcardId) {
         FlashcardEntity flashcardEntity = this.flashcardRepository.getReferenceById(flashcardId);
-        FlashcardSetEntity flashcardSetEntity = this.flashcardSetRepository.getReferenceById(flashcardEntity.getSetId());
+        FlashcardSetEntity flashcardSetEntity = this.flashcardSetRepository.getReferenceById(flashcardEntity.getParentSet().getAssessmentId());
         return flashcardSetEntity.getAssessmentId();
     }
 

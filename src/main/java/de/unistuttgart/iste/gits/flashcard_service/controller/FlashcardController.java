@@ -56,8 +56,8 @@ public class FlashcardController {
     }
 
     @SchemaMapping(typeName = "FlashcardSetMutation")
-    public UUID deleteFlashcard(@Argument UUID id) {
-        return flashcardService.deleteFlashcard(id);
+    public UUID deleteFlashcard(@Argument UUID id, FlashcardSetMutation mutation) {
+        return flashcardService.deleteFlashcard(mutation.getAssessmentId(), id);
     }
 
     @MutationMapping
