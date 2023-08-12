@@ -8,6 +8,9 @@ import de.unistuttgart.iste.gits.flashcard_service.persistence.repository.Flashc
 import de.unistuttgart.iste.gits.flashcard_service.persistence.repository.FlashcardSetRepository;
 import de.unistuttgart.iste.gits.flashcard_service.persistence.repository.FlashcardSideRepository;
 import de.unistuttgart.iste.gits.flashcard_service.test_utils.TestUtils;
+import graphql.ErrorClassification;
+import graphql.ErrorType;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.test.tester.GraphQlTester;
@@ -35,7 +38,6 @@ public class MutationDeleteFlashcardSetTest {
 
     @Test
     @Transactional
-    @Commit
     void testDeleteFlashcardSet(GraphQlTester tester) {
         // put some data into the database
         List<FlashcardSetEntity> sets = testUtils.populateFlashcardSetRepository(flashcardSetRepository);
@@ -60,5 +62,26 @@ public class MutationDeleteFlashcardSetTest {
 
         assertThat(flashcardRepository.count()).isEqualTo(2);
         assertThat(flashcardSideRepository.count()).isEqualTo(4);
+    }
+
+    @Test
+    @Transactional
+    void testDeleteFlashcardSetNotExisting(GraphQlTester tester) {
+        // put some data into the database
+        List<FlashcardSetEntity> sets = testUtils.populateFlashcardSetRepository(flashcardSetRepository);
+
+        UUID setToDelete = UUID.randomUUID();
+
+        String query = """
+                mutation($assessmentId: UUID!) {
+                    deleteFlashcardSet(input: $assessmentId)
+                }
+                """;
+
+        tester.document(query)
+                .variable("assessmentId", setToDelete)
+                .execute()
+                .errors()
+                .expect(x -> x.getExtensions().get("exception").equals("EntityNotFoundException"));
     }
 }

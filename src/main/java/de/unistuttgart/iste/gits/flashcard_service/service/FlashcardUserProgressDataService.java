@@ -56,8 +56,8 @@ public class FlashcardUserProgressDataService {
         return flashcardProgressDataRepository.save(progressData);
     }
 
-    public Flashcard logFlashCardLearned(UUID flashcardId, UUID userId, boolean successful) {
-        var flashcard = flashcardService.getFlashCardById(flashcardId);
+    public Flashcard logFlashcardLearned(UUID flashcardId, UUID userId, boolean successful) {
+        var flashcard = flashcardService.getFlashcardById(flashcardId);
         var progressData = getProgressDataEntity(flashcardId, userId);
         var logData = new FlashcardProgressDataLogEntity();
         logData.setSuccess(successful);

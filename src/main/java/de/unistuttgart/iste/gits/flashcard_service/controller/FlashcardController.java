@@ -75,7 +75,7 @@ public class FlashcardController {
         UUID flashcardId = input.getFlashcardId();
         UUID userId = input.getUserId();
         boolean successful = input.getSuccessful();
-        return progressDataService.logFlashCardLearned(flashcardId, userId, successful);
+        return progressDataService.logFlashcardLearned(flashcardId, userId, successful);
     }
 
 

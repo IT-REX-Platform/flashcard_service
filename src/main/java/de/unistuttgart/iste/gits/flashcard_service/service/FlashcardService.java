@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,7 +61,9 @@ public class FlashcardService {
 
     public UUID deleteFlashcard(UUID assessmentId, UUID flashcardId) {
         FlashcardSetEntity set = flashcardSetRepository.getReferenceById(assessmentId);
-        set.getFlashcards().removeIf(x -> x.getId().equals(flashcardId));
+        if(!set.getFlashcards().removeIf(x -> x.getId().equals(flashcardId))) {
+            throw new EntityNotFoundException("Flashcard with id " + flashcardId + " not found.");
+        }
         flashcardSetRepository.save(set);
         return flashcardId;
     }
@@ -85,19 +88,20 @@ public class FlashcardService {
         }
     }
 
-    public void requireFlashcardExisting(UUID id) {
-        if (!flashcardRepository.existsById(id)) {
-            throw new EntityNotFoundException("Flashcard with id " + id + " not found");
-        }
-    }
-
-    public Flashcard getFlashCardById(UUID flashcardId) {
-        requireFlashcardExisting(flashcardId);
+    public Flashcard getFlashcardById(UUID flashcardId) {
         return flashcardMapper.entityToDto(flashcardRepository.getReferenceById(flashcardId));
     }
 
     public List<Flashcard> getFlashcardsById(List<UUID> ids) {
-        var entities = flashcardRepository.findByIdIn(ids);
+        List<FlashcardEntity> entities = flashcardRepository.findByIdIn(ids);
+
+        ids.removeAll(entities.stream().map(FlashcardEntity::getId).toList());
+        if(ids.size() > 0) {
+            throw new EntityNotFoundException("Flashcards with ids "
+                    + ids.stream().map(UUID::toString).collect(Collectors.joining(", "))
+                    + " not found.");
+        }
+
         return entities.stream()
                 .map(flashcardMapper::entityToDto)
                 .toList();
