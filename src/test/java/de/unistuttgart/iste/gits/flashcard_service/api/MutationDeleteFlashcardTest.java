@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @GraphQlApiTest
 @TablesToDelete({"flashcard_side", "flashcard", "flashcard_set"})
-public class MutationDeleteFlashcardTest {
+class MutationDeleteFlashcardTest {
 
     @Autowired
     private FlashcardSetRepository flashcardSetRepository;
@@ -61,14 +61,13 @@ public class MutationDeleteFlashcardTest {
         assertThat(flashcardRepository.count()).isEqualTo(3);
 
         // assert that the flashcard is missing from the flashcard set and other flashcard is still there
-        assertThat(flashcardSetRepository.findById(setToDeleteFrom).orElseThrow().getFlashcards().size())
-                .isEqualTo(1);
+        assertThat(flashcardSetRepository.findById(setToDeleteFrom).orElseThrow().getFlashcards()).hasSize(1);
         assertThat(flashcardSetRepository.findById(setToDeleteFrom)
                 .orElseThrow()
                 .getFlashcards()
                 .stream()
-                .filter(x -> x.getId() == flashcardToDelete).count())
-                .isEqualTo(0);
+                .filter(x -> x.getId() == flashcardToDelete))
+                .hasSize(0);
 
         // assert that the flashcard is missing from the flashcard repository
         assertThat(flashcardRepository.count()).isEqualTo(3);

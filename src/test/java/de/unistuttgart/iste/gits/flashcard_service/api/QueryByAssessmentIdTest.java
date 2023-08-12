@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @GraphQlApiTest
 @TablesToDelete({"flashcard_side", "flashcard", "flashcard_set"})
-public class QueryByAssessmentIdTest {
+class QueryByAssessmentIdTest {
 
 
     @Autowired

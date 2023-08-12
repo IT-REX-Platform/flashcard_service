@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @GraphQlApiTest
 @TablesToDelete({"flashcard_side", "flashcard", "flashcard_set"})
-public class MutationDeleteFlashcardSetTest {
+class MutationDeleteFlashcardSetTest {
 
     @Autowired
     private FlashcardSetRepository flashcardSetRepository;

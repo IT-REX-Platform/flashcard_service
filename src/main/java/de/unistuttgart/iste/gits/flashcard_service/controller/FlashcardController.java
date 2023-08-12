@@ -26,7 +26,7 @@ public class FlashcardController {
 
     @QueryMapping
     public List<Flashcard> flashcardsByIds(@Argument(name = "ids") List<UUID> ids) {
-        return flashcardService.getFlashcardsById(ids);
+        return flashcardService.getFlashcardsByIds(ids);
     }
 
     @QueryMapping

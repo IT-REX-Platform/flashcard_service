@@ -92,11 +92,11 @@ public class FlashcardService {
         return flashcardMapper.entityToDto(flashcardRepository.getReferenceById(flashcardId));
     }
 
-    public List<Flashcard> getFlashcardsById(List<UUID> ids) {
+    public List<Flashcard> getFlashcardsByIds(List<UUID> ids) {
         List<FlashcardEntity> entities = flashcardRepository.findByIdIn(ids);
 
         ids.removeAll(entities.stream().map(FlashcardEntity::getId).toList());
-        if(ids.size() > 0) {
+        if(!ids.isEmpty()) {
             throw new EntityNotFoundException("Flashcards with ids "
                     + ids.stream().map(UUID::toString).collect(Collectors.joining(", "))
                     + " not found.");
