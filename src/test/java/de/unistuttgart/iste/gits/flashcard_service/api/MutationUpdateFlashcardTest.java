@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.test.tester.GraphQlTester;
+import org.springframework.test.annotation.Commit;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -35,6 +36,7 @@ class MutationUpdateFlashcardTest {
 
     @Test
     @Transactional
+    @Commit
     void testUpdateFlashcard(GraphQlTester tester) {
         List<FlashcardSetEntity> set = testUtils.populateFlashcardSetRepository(flashcardSetRepository);
 

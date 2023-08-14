@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.graphql.test.tester.GraphQlTester;
+import org.springframework.test.annotation.Commit;
 
 import java.util.List;
 import java.util.UUID;
@@ -35,6 +36,7 @@ class MutationDeleteFlashcardTest {
 
     @Test
     @Transactional
+    @Commit
     void testDeleteFlashcard(GraphQlTester tester) {
         // Create and save the flashcards to be deleted
         List<FlashcardSetEntity> expectedSets = testUtils.populateFlashcardSetRepository(flashcardSetRepository);

@@ -21,6 +21,7 @@ class MutationCreateFlashcardSetTest {
 
     @Test
     @Transactional
+    @Commit
     void testCreateFlashcardSet(GraphQlTester tester) {
         UUID assessmentId = UUID.randomUUID();
         String query = """

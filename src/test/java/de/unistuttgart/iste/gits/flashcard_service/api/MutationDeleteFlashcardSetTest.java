@@ -38,6 +38,7 @@ class MutationDeleteFlashcardSetTest {
 
     @Test
     @Transactional
+    @Commit
     void testDeleteFlashcardSet(GraphQlTester tester) {
         // put some data into the database
         List<FlashcardSetEntity> sets = testUtils.populateFlashcardSetRepository(flashcardSetRepository);

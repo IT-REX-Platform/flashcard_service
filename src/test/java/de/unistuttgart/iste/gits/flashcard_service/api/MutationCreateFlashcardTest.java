@@ -40,6 +40,7 @@ class MutationCreateFlashcardTest {
 
     @Test
     @Transactional
+    @Commit
     void testCreateFlashcard(GraphQlTester graphQlTester) {
         List<FlashcardSetEntity> sets = testUtils.populateFlashcardSetRepository(flashcardSetRepository);
 
