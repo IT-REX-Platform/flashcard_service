@@ -24,7 +24,7 @@ public class FlashcardSideEntity {
     @Column(nullable = false)
     private boolean isQuestion;
 
-    @Column
+    @Column(nullable = false)
     private boolean isAnswer;
 
     @ManyToOne
