@@ -54,11 +54,13 @@ class MutationCreateFlashcardTest {
                 {
                   label: "Side 11",
                   isQuestion: true,
+                  isAnswer: false,
                   text: {text: "Question 1"}
                 },
                 {
                   label: "Side 21",
                   isQuestion: false,
+                  isAnswer: true,
                   text: {text: "Answer 1"}
                 }
                 ]
@@ -90,8 +92,8 @@ class MutationCreateFlashcardTest {
         // Assert the values of the data returned by the createFlashcard mutation
         assertThat(createdFlashcard.getId()).isNotNull();
         assertThat(createdFlashcard.getSides()).containsExactlyInAnyOrder(
-                new FlashcardSide(new ResourceMarkdown("Question 1", Collections.emptyList()), "Side 11", true),
-                new FlashcardSide(new ResourceMarkdown("Answer 1", Collections.emptyList()), "Side 21", false)
+                new FlashcardSide(new ResourceMarkdown("Question 1", Collections.emptyList()), "Side 11", true, false),
+                new FlashcardSide(new ResourceMarkdown("Answer 1", Collections.emptyList()), "Side 21", false, true)
         );
 
         // Assert that the flashcard was added to the set in the repository

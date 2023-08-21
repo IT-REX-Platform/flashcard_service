@@ -69,6 +69,10 @@ type FlashcardSide {
     Whether this side is a question, i.e. should be shown to the user to guess the other sides or not.
     """
     isQuestion: Boolean!
+    """
+    Whether this side is also an answer. Some Flashcards can have their sides be used as both questions or answers for the other sides
+    """
+    isAnswer: Boolean!
 }
 
 
