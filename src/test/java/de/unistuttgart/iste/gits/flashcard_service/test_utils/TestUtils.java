@@ -34,11 +34,13 @@ public class TestUtils {
                         new ResourceMarkdownEntity("Question 1"),
                         "Question Label",
                         true,
+                        false,
                         flashcard1),
                 new FlashcardSideEntity(UUID.randomUUID(),
                         new ResourceMarkdownEntity("Answer 1"),
                         "Answer Label",
                         false,
+                        true,
                         flashcard1)
         ));
 
@@ -50,11 +52,13 @@ public class TestUtils {
                         new ResourceMarkdownEntity("Question 2"),
                         "Question Label",
                         true,
+                        false,
                         flashcard2),
                 new FlashcardSideEntity(UUID.randomUUID(),
                         new ResourceMarkdownEntity("Answer 2"),
                         "Answer Label",
                         false,
+                        true,
                         flashcard2)
         ));
 
@@ -71,11 +75,13 @@ public class TestUtils {
                         new ResourceMarkdownEntity("Question 3"),
                         "Question Label",
                         true,
+                        false,
                         flashcard3),
                 new FlashcardSideEntity(UUID.randomUUID(),
                         new ResourceMarkdownEntity("Answer 3"),
                         "Answer Label",
                         false,
+                        true,
                         flashcard3)
         ));
 
@@ -87,11 +93,13 @@ public class TestUtils {
                         new ResourceMarkdownEntity("Question 4"),
                         "Question Label",
                         true,
+                        false,
                         flashcard4),
                 new FlashcardSideEntity(UUID.randomUUID(),
                         new ResourceMarkdownEntity("Answer 4"),
                         "Answer Label",
                         false,
+                        true,
                         flashcard4)
         ));
 

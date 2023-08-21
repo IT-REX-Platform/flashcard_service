@@ -69,6 +69,7 @@ class MutationCreateFlashcardTest {
                 sides {
                   label
                   isQuestion
+                  isAnswer
                   text {
                     text,
                     referencedMediaRecordIds

@@ -34,11 +34,13 @@ class MutationCreateFlashcardSetTest {
                         {
                           label: "Side 1",
                           isQuestion: true,
+                          isAnswer: false,
                           text: {text: "Question 1"}
                         },
                         {
                           label: "Side 2",
                           isQuestion: false,
+                          isAnswer: true,
                           text: {text: "Answer 1"}
                         }
                       ]
@@ -48,11 +50,13 @@ class MutationCreateFlashcardSetTest {
                         {
                           label: "Side 1",
                           isQuestion: true,
+                          isAnswer: false,
                           text: {text: "Question 2"}
                         },
                         {
                           label: "Side 2",
                           isQuestion: false,
+                          isAnswer: true,
                           text: {text: "Answer 2"}
                         }
                       ]
@@ -68,6 +72,7 @@ class MutationCreateFlashcardSetTest {
                    {
                      label
                      isQuestion
+                     isAnswer
                      text {
                         text,
                         referencedMediaRecordIds
@@ -96,12 +101,14 @@ class MutationCreateFlashcardSetTest {
         FlashcardSide flashcard1Side1 = flashcard1.getSides().get(0);
         assertThat(flashcard1Side1.getLabel(), is("Side 1"));
         assertThat(flashcard1Side1.getIsQuestion(), is(true));
+        assertThat(flashcard1Side1.getIsAnswer(), is(false));
         assertThat(flashcard1Side1.getText().getText(), is("Question 1"));
         assertThat(flashcard1Side1.getText().getReferencedMediaRecordIds().isEmpty(), is(true));
 
         FlashcardSide flashcard1Side2 = flashcard1.getSides().get(1);
         assertThat(flashcard1Side2.getLabel(), is("Side 2"));
         assertThat(flashcard1Side2.getIsQuestion(), is(false));
+        assertThat(flashcard1Side2.getIsAnswer(), is(true));
         assertThat(flashcard1Side2.getText().getText(), is("Answer 1"));
         assertThat(flashcard1Side2.getText().getReferencedMediaRecordIds().isEmpty(), is(true));
 
@@ -111,12 +118,14 @@ class MutationCreateFlashcardSetTest {
         FlashcardSide flashcard2Side1 = flashcard2.getSides().get(0);
         assertThat(flashcard2Side1.getLabel(), is("Side 1"));
         assertThat(flashcard2Side1.getIsQuestion(), is(true));
+        assertThat(flashcard2Side1.getIsAnswer(), is(false));
         assertThat(flashcard2Side1.getText().getText(), is("Question 2"));
         assertThat(flashcard2Side1.getText().getReferencedMediaRecordIds().isEmpty(), is(true));
 
         FlashcardSide flashcard2Side2 = flashcard2.getSides().get(1);
         assertThat(flashcard2Side2.getLabel(), is("Side 2"));
         assertThat(flashcard2Side2.getIsQuestion(), is(false));
+        assertThat(flashcard2Side2.getIsAnswer(), is(true));
         assertThat(flashcard2Side2.getText().getReferencedMediaRecordIds().isEmpty(), is(true));
 
     }

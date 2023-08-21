@@ -48,6 +48,7 @@ class QueryFlashcardTest {
                     sides {
                       label
                       isQuestion
+                      isAnswer
                       text {text, referencedMediaRecordIds}
                     }
                   }
