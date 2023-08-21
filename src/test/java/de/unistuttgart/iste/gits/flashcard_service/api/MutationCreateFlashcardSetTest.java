@@ -1,12 +1,10 @@
 package de.unistuttgart.iste.gits.flashcard_service.api;
 import de.unistuttgart.iste.gits.common.testutil.TablesToDelete;
-import de.unistuttgart.iste.gits.flashcard_service.persistence.repository.FlashcardRepository;
 import de.unistuttgart.iste.gits.generated.dto.Flashcard;
 import de.unistuttgart.iste.gits.generated.dto.FlashcardSet;
 import de.unistuttgart.iste.gits.generated.dto.FlashcardSide;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.test.tester.GraphQlTester;
 import org.springframework.test.annotation.Commit;
 import java.util.UUID;

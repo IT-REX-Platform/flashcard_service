@@ -6,11 +6,9 @@ import de.unistuttgart.iste.gits.flashcard_service.persistence.dao.FlashcardSetE
 import de.unistuttgart.iste.gits.flashcard_service.persistence.dao.FlashcardSideEntity;
 import de.unistuttgart.iste.gits.flashcard_service.persistence.repository.FlashcardSetRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.boot.test.context.TestComponent;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Component
