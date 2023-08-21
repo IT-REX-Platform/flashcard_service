@@ -117,4 +117,104 @@ class MutationCreateFlashcardTest {
                 .returns(false, FlashcardSideEntity::isQuestion)
                 .returns("Answer 1", side -> side.getText().getText());
     }
+
+    @Test
+    void testCreateInvalidFlashcard(GraphQlTester graphQlTester) {
+        List<FlashcardSetEntity> sets = testUtils.populateFlashcardSetRepository(flashcardSetRepository);
+
+        String query = """
+          mutation ($setId: UUID!) {
+            mutateFlashcardSet(assessmentId: $setId) {
+              createFlashcard(input: {
+                sides: [
+                {
+                  label: "Side 11",
+                  isQuestion: false,
+                  isAnswer: true,
+                  text: {text: "Question 1"}
+                },
+                {
+                  label: "Side 21",
+                  isQuestion: false,
+                  isAnswer: true,
+                  text: {text: "Answer 1"}
+                }
+                ]
+              }) {
+                id
+                sides {
+                  label
+                  isQuestion
+                  isAnswer
+                  text {
+                    text,
+                    referencedMediaRecordIds
+                  }
+                }
+              }
+            }
+          }
+          """;
+
+        UUID setId = sets.get(0).getAssessmentId();
+
+        // Execute the mutation and check for expected errors
+        graphQlTester.document(query)
+                .variable("setId", setId)
+                .execute()
+                .errors()
+                .expect(responseError ->  responseError.getMessage() != null && responseError.getMessage().toLowerCase().contains("flashcards must have at least one question side and one answer side"));
+
+
+    }
+
+    @Test
+    void testCreateInvalidFlashcardSide(GraphQlTester graphQlTester) {
+        List<FlashcardSetEntity> sets = testUtils.populateFlashcardSetRepository(flashcardSetRepository);
+
+        String query = """
+          mutation ($setId: UUID!) {
+            mutateFlashcardSet(assessmentId: $setId) {
+              createFlashcard(input: {
+                sides: [
+                {
+                  label: "Side 11",
+                  isQuestion: true,
+                  isAnswer: false,
+                  text: {text: "Question 1"}
+                },
+                {
+                  label: "Side 21",
+                  isQuestion: false,
+                  isAnswer: false,
+                  text: {text: "Answer 1"}
+                }
+                ]
+              }) {
+                id
+                sides {
+                  label
+                  isQuestion
+                  isAnswer
+                  text {
+                    text,
+                    referencedMediaRecordIds
+                  }
+                }
+              }
+            }
+          }
+          """;
+
+        UUID setId = sets.get(0).getAssessmentId();
+
+        // Execute the mutation and check for expected errors
+        graphQlTester.document(query)
+                .variable("setId", setId)
+                .execute()
+                .errors()
+                .expect(responseError ->  responseError.getMessage() != null && responseError.getMessage().toLowerCase().contains("flashcard side must must be at least a question or an answer"));
+
+
+    }
 }
