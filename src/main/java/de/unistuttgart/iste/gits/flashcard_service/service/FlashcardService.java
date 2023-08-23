@@ -136,11 +136,11 @@ public class FlashcardService {
             return;
         }
 
-        // find all quizzes
-        List<FlashcardEntity> flashcardEntities = flashcardRepository.findAllById(dto.getContentIds());
+        // find all flashcard
+        List<FlashcardSetEntity> flashcardSetEntity = flashcardSetRepository.findAllById(dto.getContentIds());
 
-        // delete all found quizzes
-        flashcardRepository.deleteAllInBatch(flashcardEntities);
+        // delete all found flashcard
+        flashcardSetRepository.deleteAllInBatch(flashcardSetEntity);
 
     }
     /**
