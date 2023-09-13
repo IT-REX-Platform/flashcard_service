@@ -65,12 +65,12 @@ class MutationCreateFlashcardSetTest {
             {
                assessmentId
                        flashcards {
-                           sides {
+                          sides {
                      label
                      isQuestion
                      isAnswer
                              text
-                   }
+                          }
                }
             }
         }
