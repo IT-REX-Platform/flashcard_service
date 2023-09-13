@@ -47,13 +47,13 @@ class MutationCreateFlashcardTest {
                   label: "Side 11",
                   isQuestion: true,
                   isAnswer: false,
-                        text: "Question 1"
+                  text: "Question 1"
                 },
                 {
                   label: "Side 21",
                   isQuestion: false,
                   isAnswer: true,
-                        text: "Answer 1"
+                  text: "Answer 1"
                 }
                 ]
               }) {
@@ -62,7 +62,7 @@ class MutationCreateFlashcardTest {
                   label
                   isQuestion
                   isAnswer
-                        text
+                  text
                 }
               }
             }
@@ -120,13 +120,13 @@ class MutationCreateFlashcardTest {
                   label: "Side 11",
                   isQuestion: false,
                   isAnswer: true,
-                        text: "Question 1"
+                  text: "Question 1"
                 },
                 {
                   label: "Side 21",
                   isQuestion: false,
                   isAnswer: true,
-                        text: "Answer 1"
+                  text: "Answer 1"
                 }
                 ]
               }) {
@@ -135,7 +135,7 @@ class MutationCreateFlashcardTest {
                   label
                   isQuestion
                   isAnswer
-                        text
+                  text
                 }
               }
             }
@@ -167,13 +167,13 @@ class MutationCreateFlashcardTest {
                   label: "Side 11",
                   isQuestion: true,
                   isAnswer: false,
-                        text: "Question 1"
+                  text: "Question 1"
                 },
                 {
                   label: "Side 21",
                   isQuestion: false,
                   isAnswer: false,
-                        text: "Answer 1"
+                  text: "Answer 1"
                 }
                 ]
               }) {
@@ -182,7 +182,7 @@ class MutationCreateFlashcardTest {
                   label
                   isQuestion
                   isAnswer
-                        text
+                  text
                 }
               }
             }

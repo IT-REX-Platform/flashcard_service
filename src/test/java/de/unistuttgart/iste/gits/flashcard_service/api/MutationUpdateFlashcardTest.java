@@ -52,13 +52,13 @@ class MutationUpdateFlashcardTest {
                     label: "New_Side 1",
                     isQuestion: true,
                     isAnswer: false,
-                            text: "{text: \\"New_Question 1\\"}"
+                    text: "{text: \\"New_Question 1\\"}"
                   },
                   {
                     label: "New_Side 2",
                     isQuestion: false,
                     isAnswer: true,
-                            text: "{text: \\"New_Answer 1\\"}"
+                    text: "{text: \\"New_Answer 1\\"}"
                   }
                 ]
               }) {
@@ -67,7 +67,7 @@ class MutationUpdateFlashcardTest {
                   label
                   isQuestion
                   isAnswer
-                          text
+                  text
                 }
               }
             }
