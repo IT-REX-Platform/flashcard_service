@@ -33,13 +33,13 @@ class MutationCreateFlashcardSetTest {
                           label: "Side 1",
                           isQuestion: true,
                           isAnswer: false,
-                                  text: "Question 1"
+                          text: "Question 1"
                         },
                         {
                           label: "Side 2",
                           isQuestion: false,
                           isAnswer: true,
-                                  text: "Answer 1"
+                          text: "Answer 1"
                         }
                       ]
                     },
@@ -49,13 +49,13 @@ class MutationCreateFlashcardSetTest {
                           label: "Side 1",
                           isQuestion: true,
                           isAnswer: false,
-                                  text: "Question 2"
+                          text: "Question 2"
                         },
                         {
                           label: "Side 2",
                           isQuestion: false,
                           isAnswer: true,
-                                  text: "Answer 2"
+                          text: "Answer 2"
                         }
                       ]
                     }
@@ -64,13 +64,13 @@ class MutationCreateFlashcardSetTest {
             })
             {
                assessmentId
-                       flashcards {
-                          sides {
+                 flashcards {
+                     sides {
                      label
                      isQuestion
                      isAnswer
-                             text
-                          }
+                     text
+                 }
                }
             }
         }
