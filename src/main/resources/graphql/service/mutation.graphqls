@@ -4,7 +4,8 @@ creating and deleting flashcard sets. To update a flashcard set, update, delete,
 """
 type Mutation {
     """
-    Creates a new flashcard set.
+    Creates a new flashcard set. Mutation is only accessible internally within the system by other
+    services and the gateway.
     """
     _internal_createFlashcardSet(courseId: UUID!, assessmentId: UUID!, input: CreateFlashcardSetInput!): FlashcardSet!
 
