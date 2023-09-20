@@ -13,7 +13,17 @@ These flashcards consist of multiple sides, each containing text, images, and cu
 
 4. **Learning Progress Tracking:** The service tracks user progress with flashcards, success rates, and suggesting future study intervals.
 ## Environment variables
-The following table lists the important properties, which are highlighted in *italic*:
+### Relevant for deployment
+
+| Name                       | Description                        | Value in Dev Environment                           | Value in Prod Environment                                                |
+|----------------------------|------------------------------------|----------------------------------------------------|--------------------------------------------------------------------------|
+| spring.datasource.url      | PostgreSQL database URL            | jdbc:postgresql://localhost:6032/flashcard_service | jdbc:postgresql://flashcard-service-db-postgresql:5432/flashcard-service |
+| spring.datasource.username | Database username                  | root                                               | gits                                                                     |
+| spring.datasource.password | Database password                  | root                                               | *secret*                                                                 |
+| DAPR_HTTP_PORT             | Dapr HTTP Port                     | 6000                                               | 3500                                                                     |
+| server.port                | Port on which the application runs | 6001                                               | 6001                                                                     |
+
+### Other properties
 
 | Name                                    | Description                               | Value in Dev Environment                             | Value in Prod Environment                                                  |
 |-----------------------------------------|-------------------------------------------|------------------------------------------------------|----------------------------------------------------------------------------|
@@ -21,16 +31,11 @@ The following table lists the important properties, which are highlighted in *it
 | spring.graphql.graphiql.path            | Path for GraphiQL when enabled            | /graphiql                                            | /graphiql                                                                  |
 | spring.profiles.active                  | Active Spring profile                     | dev                                                  | prod                                                                       |
 | spring.jpa.properties.hibernate.dialect | Hibernate dialect for PostgreSQL          | org.hibernate.dialect.PostgreSQLDialect**            | org.hibernate.dialect.PostgreSQLDialect                                    |
-| *spring.datasource.url*                 | *PostgreSQL database URL*                 | *jdbc:postgresql://localhost:6032/flashcard_service* | *jdbc:postgresql://flashcard-service-db-postgresql:5432/flashcard-service* |
-| *spring.datasource.username*            | *Database username*                       | *root*                                               | *gits*                                                                     |
-| *spring.datasource.password*            | *Database password*                       | *root*                                               | *secret*                                                                   |
 | spring.sql.init.mode                    | SQL initialization mode                   | always                                               | always                                                                     |
 | spring.jpa.show-sql                     | Show SQL queries in logs                  | true                                                 | true                                                                       |
 | spring.sql.init.continue-on-error       | Continue on SQL init error                | true                                                 | true                                                                       |
 | spring.jpa.hibernate.ddl-auto           | Hibernate DDL auto strategy               | create                                               | update                                                                     |
 | DAPR_GRPC_PORT                          | Dapr gRPC Port                            | -                                                    | 50001                                                                      |
-| *DAPR_HTTP_PORT*                        | *Dapr HTTP Port*                          | *6000*                                               | *3500*                                                                     |
-| *server.port*                           | *Port on which the application runs*      | *6001*                                               | *6001*                                                                     |
 | logging.level.root                      | Logging level for root logger             | DEBUG                                                | -                                                                          |
 
 ## API description
