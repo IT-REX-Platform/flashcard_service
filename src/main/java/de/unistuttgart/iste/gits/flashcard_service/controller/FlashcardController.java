@@ -1,5 +1,6 @@
 package de.unistuttgart.iste.gits.flashcard_service.controller;
 
+import de.unistuttgart.iste.gits.common.exception.NoAccessToCourseException;
 import de.unistuttgart.iste.gits.common.user_handling.LoggedInUser;
 import de.unistuttgart.iste.gits.common.user_handling.UserCourseAccessValidator;
 import de.unistuttgart.iste.gits.flashcard_service.persistence.entity.FlashcardEntity;
@@ -44,13 +45,19 @@ public class FlashcardController {
     @QueryMapping
     public List<FlashcardSet> findFlashcardSetsByAssessmentIds(@Argument(name = "assessmentIds") List<UUID> ids,
                                                                @ContextValue LoggedInUser currentUser) {
-        List<FlashcardSet> flashcardSets = flashcardService.findFlashcardSetsByAssessmentId(ids);
-
-        for (FlashcardSet flashcardSet : flashcardSets) {
-            UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
-                    LoggedInUser.UserRoleInCourse.STUDENT,
-                    flashcardSet.getCourseId());
-        }
+        List<FlashcardSet> flashcardSets = flashcardService.findFlashcardSetsByAssessmentId(ids).stream()
+                .map(set -> {
+                    try {
+                        // check if the user has access to the course, otherwise return null
+                        UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
+                                LoggedInUser.UserRoleInCourse.STUDENT,
+                                set.getCourseId());
+                        return set;
+                    } catch (NoAccessToCourseException ex) {
+                        return null;
+                    }
+                })
+                .toList();
 
         return flashcardSets;
     }
