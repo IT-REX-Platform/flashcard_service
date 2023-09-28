@@ -23,17 +23,18 @@ public class FlashcardController {
     private final FlashcardUserProgressDataService progressDataService;
 
 
-    public FlashcardController(FlashcardService flashcardService, FlashcardUserProgressDataService progressDataService) {
+    public FlashcardController(final FlashcardService flashcardService,
+                               final FlashcardUserProgressDataService progressDataService) {
         this.flashcardService = flashcardService;
         this.progressDataService = progressDataService;
     }
 
     @QueryMapping
-    public List<Flashcard> flashcardsByIds(@Argument(name = "ids") List<UUID> ids,
-                                           @ContextValue LoggedInUser currentUser) {
-        List<UUID> courseIds = flashcardService.getCourseIdsForFlashcardIds(ids);
+    public List<Flashcard> flashcardsByIds(@Argument(name = "ids") final List<UUID> ids,
+                                           @ContextValue final LoggedInUser currentUser) {
+        final List<UUID> courseIds = flashcardService.getCourseIdsForFlashcardIds(ids);
 
-        for (UUID courseId : courseIds) {
+        for (final UUID courseId : courseIds) {
             UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
                     LoggedInUser.UserRoleInCourse.STUDENT,
                     courseId);
@@ -43,9 +44,10 @@ public class FlashcardController {
     }
 
     @QueryMapping
-    public List<FlashcardSet> findFlashcardSetsByAssessmentIds(@Argument(name = "assessmentIds") List<UUID> ids,
-                                                               @ContextValue LoggedInUser currentUser) {
-        List<FlashcardSet> flashcardSets = flashcardService.findFlashcardSetsByAssessmentId(ids).stream()
+    public List<FlashcardSet> findFlashcardSetsByAssessmentIds(@Argument(name = "assessmentIds") final List<UUID> ids,
+                                                               @ContextValue final LoggedInUser currentUser) {
+
+        return flashcardService.findFlashcardSetsByAssessmentId(ids).stream()
                 .map(set -> {
                     try {
                         // check if the user has access to the course, otherwise return null
@@ -58,19 +60,18 @@ public class FlashcardController {
                     }
                 })
                 .toList();
-
-        return flashcardSets;
     }
 
     @SchemaMapping(typeName = "Flashcard", field = "userProgressData")
-    public FlashcardProgressData flashcardUserProgressData(Flashcard flashcard, @ContextValue LoggedInUser currentUser) {
+    public FlashcardProgressData flashcardUserProgressData(final Flashcard flashcard,
+                                                           @ContextValue final LoggedInUser currentUser) {
         return progressDataService.getProgressData(flashcard.getId(), currentUser.getId());
     }
 
     @MutationMapping
-    public FlashcardSetMutation mutateFlashcardSet(@Argument UUID assessmentId,
-                                                   @ContextValue LoggedInUser currentUser) {
-        FlashcardSet flashcardSet = flashcardService.findFlashcardSetsByAssessmentId(List.of(assessmentId)).get(0);
+    public FlashcardSetMutation mutateFlashcardSet(@Argument final UUID assessmentId,
+                                                   @ContextValue final LoggedInUser currentUser) {
+        final FlashcardSet flashcardSet = flashcardService.findFlashcardSetsByAssessmentId(List.of(assessmentId)).get(0);
 
         UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
                 LoggedInUser.UserRoleInCourse.STUDENT,
@@ -81,36 +82,37 @@ public class FlashcardController {
     }
 
     @SchemaMapping(typeName = "FlashcardSetMutation")
-    public Flashcard createFlashcard(@Argument(name = "input") CreateFlashcardInput input, FlashcardSetMutation mutation) {
+    public Flashcard createFlashcard(@Argument(name = "input") final CreateFlashcardInput input,
+                                     final FlashcardSetMutation mutation) {
         return flashcardService.createFlashcard(mutation.getAssessmentId(), input);
     }
 
     @SchemaMapping(typeName = "FlashcardSetMutation")
-    public Flashcard updateFlashcard(@Argument(name = "input") UpdateFlashcardInput input) {
+    public Flashcard updateFlashcard(@Argument(name = "input") final UpdateFlashcardInput input) {
         return flashcardService.updateFlashcard(input);
     }
 
     @SchemaMapping(typeName = "FlashcardSetMutation")
-    public UUID deleteFlashcard(@Argument UUID id, FlashcardSetMutation mutation) {
+    public UUID deleteFlashcard(@Argument final UUID id, final FlashcardSetMutation mutation) {
         return flashcardService.deleteFlashcard(mutation.getAssessmentId(), id);
     }
 
     @MutationMapping(name = "_internal_noauth_createFlashcardSet")
-    public FlashcardSet createFlashcardSet(@Argument UUID courseId,
-                                           @Argument UUID assessmentId,
-                                           @Argument CreateFlashcardSetInput input) {
+    public FlashcardSet createFlashcardSet(@Argument final UUID courseId,
+                                           @Argument final UUID assessmentId,
+                                           @Argument final CreateFlashcardSetInput input) {
         return flashcardService.createFlashcardSet(courseId, assessmentId, input);
     }
 
     @MutationMapping
-    public UUID deleteFlashcardSet(@Argument(name = "input") UUID id) {
+    public UUID deleteFlashcardSet(@Argument(name = "input") final UUID id) {
         return flashcardService.deleteFlashcardSet(id);
     }
 
     @MutationMapping
-    public FlashcardLearnedFeedback logFlashcardLearned(@Argument("input") LogFlashcardLearnedInput input,
-                                                        @ContextValue LoggedInUser currentUser) {
-        UUID courseId = flashcardService.getCourseIdsForFlashcardIds(List.of(input.getFlashcardId())).get(0);
+    public FlashcardLearnedFeedback logFlashcardLearned(@Argument("input") final LogFlashcardLearnedInput input,
+                                                        @ContextValue final LoggedInUser currentUser) {
+        final UUID courseId = flashcardService.getCourseIdsForFlashcardIds(List.of(input.getFlashcardId())).get(0);
 
         UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
                 LoggedInUser.UserRoleInCourse.STUDENT,
