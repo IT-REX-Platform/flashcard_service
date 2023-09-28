@@ -1,6 +1,8 @@
 package de.unistuttgart.iste.gits.flashcard_service.controller;
 
 import de.unistuttgart.iste.gits.common.user_handling.LoggedInUser;
+import de.unistuttgart.iste.gits.common.user_handling.UserCourseAccessValidator;
+import de.unistuttgart.iste.gits.flashcard_service.persistence.entity.FlashcardEntity;
 import de.unistuttgart.iste.gits.flashcard_service.service.FlashcardService;
 import de.unistuttgart.iste.gits.flashcard_service.service.FlashcardUserProgressDataService;
 import de.unistuttgart.iste.gits.generated.dto.*;
@@ -26,13 +28,31 @@ public class FlashcardController {
     }
 
     @QueryMapping
-    public List<Flashcard> flashcardsByIds(@Argument(name = "ids") List<UUID> ids) {
+    public List<Flashcard> flashcardsByIds(@Argument(name = "ids") List<UUID> ids,
+                                           @ContextValue LoggedInUser currentUser) {
+        List<UUID> courseIds = flashcardService.getCourseIdsForFlashcardIds(ids);
+
+        for (UUID courseId : courseIds) {
+            UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
+                    LoggedInUser.UserRoleInCourse.STUDENT,
+                    courseId);
+        }
+
         return flashcardService.getFlashcardsByIds(ids);
     }
 
     @QueryMapping
-    public List<FlashcardSet> findFlashcardSetsByAssessmentIds(@Argument(name = "assessmentIds") List<UUID> ids) {
-        return flashcardService.findFlashcardSetsByAssessmentId(ids);
+    public List<FlashcardSet> findFlashcardSetsByAssessmentIds(@Argument(name = "assessmentIds") List<UUID> ids,
+                                                               @ContextValue LoggedInUser currentUser) {
+        List<FlashcardSet> flashcardSets = flashcardService.findFlashcardSetsByAssessmentId(ids);
+
+        for (FlashcardSet flashcardSet : flashcardSets) {
+            UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
+                    LoggedInUser.UserRoleInCourse.STUDENT,
+                    flashcardSet.getCourseId());
+        }
+
+        return flashcardSets;
     }
 
     @SchemaMapping(typeName = "Flashcard", field = "userProgressData")
@@ -41,7 +61,14 @@ public class FlashcardController {
     }
 
     @MutationMapping
-    public FlashcardSetMutation mutateFlashcardSet(@Argument UUID assessmentId) {
+    public FlashcardSetMutation mutateFlashcardSet(@Argument UUID assessmentId,
+                                                   @ContextValue LoggedInUser currentUser) {
+        FlashcardSet flashcardSet = flashcardService.findFlashcardSetsByAssessmentId(List.of(assessmentId)).get(0);
+
+        UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
+                LoggedInUser.UserRoleInCourse.STUDENT,
+                flashcardSet.getCourseId());
+
         // this is basically an empty object, only serving as a parent for the nested mutations
         return new FlashcardSetMutation(assessmentId);
     }
@@ -61,10 +88,10 @@ public class FlashcardController {
         return flashcardService.deleteFlashcard(mutation.getAssessmentId(), id);
     }
 
-    @MutationMapping
-    public FlashcardSet _internal_createFlashcardSet(@Argument UUID courseId,
-                                                     @Argument UUID assessmentId,
-                                                     @Argument CreateFlashcardSetInput input) {
+    @MutationMapping(name = "_internal_noauth_createFlashcardSet")
+    public FlashcardSet createFlashcardSet(@Argument UUID courseId,
+                                           @Argument UUID assessmentId,
+                                           @Argument CreateFlashcardSetInput input) {
         return flashcardService.createFlashcardSet(courseId, assessmentId, input);
     }
 
@@ -73,12 +100,18 @@ public class FlashcardController {
         return flashcardService.deleteFlashcardSet(id);
     }
 
-   @MutationMapping
-    public FlashcardLearnedFeedback logFlashcardLearned(@Argument("input") LogFlashcardLearnedInput input, @ContextValue LoggedInUser currentUser) {
-        UUID flashcardId = input.getFlashcardId();
-        boolean successful = input.getSuccessful();
-        UUID authenticatedUserId = currentUser.getId(); // Use the authenticated user's ID
-        return progressDataService.logFlashcardLearned(flashcardId, authenticatedUserId, successful);
+    @MutationMapping
+    public FlashcardLearnedFeedback logFlashcardLearned(@Argument("input") LogFlashcardLearnedInput input,
+                                                        @ContextValue LoggedInUser currentUser) {
+        UUID courseId = flashcardService.getCourseIdsForFlashcardIds(List.of(input.getFlashcardId())).get(0);
+
+        UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
+                LoggedInUser.UserRoleInCourse.STUDENT,
+                courseId);
+
+        return progressDataService.logFlashcardLearned(input.getFlashcardId(),
+                currentUser.getId(),
+                input.getSuccessful());
     }
 
 
