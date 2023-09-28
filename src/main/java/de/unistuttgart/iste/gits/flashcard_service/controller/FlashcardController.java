@@ -77,7 +77,7 @@ public class FlashcardController {
                 .orElseThrow(() -> new EntityNotFoundException("No flashcard set found for assessment id " + assessmentId));
 
         UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
-                LoggedInUser.UserRoleInCourse.STUDENT,
+                LoggedInUser.UserRoleInCourse.ADMINISTRATOR,
                 flashcardSet.getCourseId());
 
         // this is basically an empty object, only serving as a parent for the nested mutations
