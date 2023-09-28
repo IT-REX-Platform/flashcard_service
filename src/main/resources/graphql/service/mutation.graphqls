@@ -6,7 +6,7 @@ type Mutation {
     """
     Creates a new flashcard set. Mutation is only accessible internally within the system by other
     services and the gateway.
-    ⚠️ This query is only accessible internally in the system and allows the caller to create FlashcardSets without
+    ⚠️ This mutation is only accessible internally in the system and allows the caller to create FlashcardSets without
     any permissions check and should not be called without any validation of the caller's permissions. ⚠️
     """
     _internal_noauth_createFlashcardSet(courseId: UUID!, assessmentId: UUID!, input: CreateFlashcardSetInput!): FlashcardSet!
