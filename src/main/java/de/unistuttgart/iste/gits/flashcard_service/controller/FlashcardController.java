@@ -7,6 +7,7 @@ import de.unistuttgart.iste.gits.flashcard_service.persistence.entity.FlashcardE
 import de.unistuttgart.iste.gits.flashcard_service.service.FlashcardService;
 import de.unistuttgart.iste.gits.flashcard_service.service.FlashcardUserProgressDataService;
 import de.unistuttgart.iste.gits.generated.dto.*;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.*;
 import org.springframework.stereotype.Controller;
@@ -71,7 +72,9 @@ public class FlashcardController {
     @MutationMapping
     public FlashcardSetMutation mutateFlashcardSet(@Argument final UUID assessmentId,
                                                    @ContextValue final LoggedInUser currentUser) {
-        final FlashcardSet flashcardSet = flashcardService.findFlashcardSetsByAssessmentId(List.of(assessmentId)).get(0);
+        final FlashcardSet flashcardSet = flashcardService.findFlashcardSetsByAssessmentId(List.of(assessmentId)).stream()
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("No flashcard set found for assessment id " + assessmentId));
 
         UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
                 LoggedInUser.UserRoleInCourse.STUDENT,
