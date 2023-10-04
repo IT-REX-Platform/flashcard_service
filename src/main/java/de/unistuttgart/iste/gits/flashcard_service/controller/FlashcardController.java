@@ -50,6 +50,9 @@ public class FlashcardController {
 
         return flashcardService.findFlashcardSetsByAssessmentId(ids).stream()
                 .map(set -> {
+                    if (set == null) {
+                        return null;
+                    }
                     try {
                         // check if the user has access to the course, otherwise return null
                         UserCourseAccessValidator.validateUserHasAccessToCourse(currentUser,
