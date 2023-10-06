@@ -1,7 +1,7 @@
 package de.unistuttgart.iste.gits.flashcard_service.service;
 
 import de.unistuttgart.iste.gits.common.dapr.TopicPublisher;
-import de.unistuttgart.iste.gits.common.event.UserProgressLogEvent;
+import de.unistuttgart.iste.gits.common.event.ContentProgressedEvent;
 import de.unistuttgart.iste.gits.flashcard_service.persistence.entity.*;
 import de.unistuttgart.iste.gits.flashcard_service.persistence.repository.*;
 import de.unistuttgart.iste.gits.generated.dto.*;
@@ -201,7 +201,7 @@ public class FlashcardUserProgressDataService {
 
     private void publishUserProgressEvent(final UUID userId, final UUID assessmentId, final float correctness) {
         topicPublisher.notifyUserWorkedOnContent(
-                UserProgressLogEvent.builder()
+                ContentProgressedEvent.builder()
                         .contentId(assessmentId)
                         .userId(userId)
                         .hintsUsed(0)
