@@ -109,7 +109,8 @@ public class FlashcardUserProgressDataService {
                 .toList();
     }
 
-    private Stream<FlashcardEntity> getDueFlashcardsOfFlashcardSet(FlashcardSetEntity flashcardSetEntity, UUID userId) {
+    private Stream<FlashcardEntity> getDueFlashcardsOfFlashcardSet(final FlashcardSetEntity flashcardSetEntity,
+                                                                   final UUID userId) {
         final var flashcards = flashcardSetEntity.getFlashcards();
         final OffsetDateTime now = OffsetDateTime.now();
         return flashcards.stream()
