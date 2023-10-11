@@ -116,6 +116,10 @@ public class FlashcardUserProgressDataService {
         return flashcards.stream()
                 .filter(flashcardEntity -> {
                     final var progressData = getProgressDataEntity(flashcardEntity.getId(), userId);
+                    if (progressData.getNextLearn() == null) {
+                        // if the flashcard has never been learned, it is due
+                        return true;
+                    }
                     return progressData.getNextLearn().isBefore(now);
                 });
     }

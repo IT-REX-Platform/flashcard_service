@@ -51,7 +51,7 @@ class QueryDueFlashcardsByCourseIdTest {
                 // due
                 FlashcardProgressDataEntity.builder()
                         .primaryKey(new PrimaryKey(flashCardsSet1.get(0).getId(), loggedInUser.getId()))
-                        .nextLearn(OffsetDateTime.now().minusDays(2))
+                        .nextLearn(null)
                         .build(),
                 // not due
                 FlashcardProgressDataEntity.builder()
@@ -81,16 +81,9 @@ class QueryDueFlashcardsByCourseIdTest {
         tester.document(query)
                 .variable("courseId", courseId)
                 .execute()
-                .path("dueFlashcardsByCourseId[0].id")
-                .entity(UUID.class)
-                .isEqualTo(flashCardsSet1.get(0).getId())
-
-                .path("dueFlashcardsByCourseId[1].id")
-                .entity(UUID.class)
-                .isEqualTo(flashCardsSet2.get(0).getId())
-
-                .path("dueFlashcardsByCourseId")
-                .entityList(Object.class)
-                .hasSize(2);
+                .path("dueFlashcardsByCourseId[*].id")
+                .entityList(UUID.class)
+                .hasSize(2)
+                .contains(flashCardsSet1.get(0).getId(), flashCardsSet2.get(0).getId());
     }
 }
